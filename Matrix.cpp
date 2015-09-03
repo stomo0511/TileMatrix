@@ -68,6 +68,49 @@ Matrix::~Matrix()
 }
 
 /**
+ * Show elements to the standard output
+ */
+void Matrix::Show_all() const
+{
+	for (unsigned int i = 0; i < m_; i++) {
+		for (unsigned int j = 0; j < n_; j++) {
+			cout << top_[ i + j * m_ ] << " ";
+		}
+		cout << endl;
+	}
+	cout << endl;
+}
+
+/**
+ * Assign random numbers to the elements
+ *
+ * @param seed Seed of random number generator
+ */
+void Matrix::Set_Rnd( const unsigned seed )
+{
+	assert( seed >= 0 );
+
+	srand(seed);
+	for (unsigned int i = 0; i < m_ * n_; i++)
+		top_[i] = (double)rand() / RAND_MAX;
+}
+
+/**
+ * Assign the value to (i,j) element
+ *
+ * @param i vertical index of the element
+ * @param j horizontal index of the element
+ * @param val element value
+ */
+void Matrix::Set_Val( const unsigned int i, const unsigned int j, const double val )
+{
+	assert( i >= 0 );	assert( i < m_ );
+	assert( j >= 0 );	assert( j < n_ );
+
+	top_[ i + j * m_ ] = val;
+}
+
+/**
  * Operator overload =
  */
 Matrix &Matrix::operator=( const Matrix &T )

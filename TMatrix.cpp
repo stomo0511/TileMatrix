@@ -8,9 +8,23 @@
 #include <iostream>
 #include <cstdlib>
 #include <cassert>
+#include "Matrix.hpp"
 #include "TMatrix.hpp"
 
 using namespace std;
+
+/**
+ * Default constructor
+ */
+TMatrix::TMatrix()
+{
+#ifdef DEBUG
+	cout << "TMatrix()\n";
+#endif
+
+	M_ = N_ = mb_ = nb_ = p_ = q_ = 0;
+	top_ = NULL;
+}
 
 /**
  * Constructor
@@ -91,6 +105,31 @@ TMatrix::~TMatrix()
 			delete top_[ i + j * p_ ];
 		}
 	delete [] top_;
+}
+
+/**
+ * Assign random numbers to the elements
+ *
+ * @param seed Seed of random number generator
+ */
+void TMatrix::Set_Rnd( const unsigned seed )
+{
+  Matrix Tmp(M_,N_);
+  Tmp.Set_Rnd( seed );
+
+  // (I,J) : Index of the elements of Matrix
+  for (unsigned int I = 0; I < N_; I++) {
+    for (unsigned int J = 0; J < N_; J++) {
+      // (ti,tj) : Tile Index
+      unsigned int ti = I / mb_;
+      unsigned int tj = J / nb_;
+      // (i,j) : Index of the elements of Tile
+      unsigned int i = I % mb_;
+      unsigned int j = J % nb_;
+
+      top_[ ti + tj * q_ ]->Set_Val(i, j, Tmp(I,J));
+    }
+  }
 }
 
 /**

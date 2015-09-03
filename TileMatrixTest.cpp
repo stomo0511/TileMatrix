@@ -28,13 +28,16 @@ int main( int argc, char* argv[] )
 		cout << "m = " << A.m() << ", n = " << A.n() << ", ib = " << A.ib() << endl;
 	}
 	cout << "BMatrix block start" << endl;
-	cout << endl << "TMatrix block end" << endl;
+	cout << endl << "TMatrix block start" << endl;
 	{
 		TMatrix A(20,18,10,10,5);
 		cout << "M = " << A.M() << ", n = " << A.N() << ", mb = " << A.mb() << ", nb = " << A.nb();
 		cout << ", p = " << A.p() << ", q = " << A.q() << endl;
+
+		A.Set_Rnd(20150903);
+//		cout << (A[0]) << endl;
 	}
-	cout << endl << "TMatrix block end" << endl;
+	cout << "TMatrix block end" << endl;
 
 	cout << "TileMatrixTest end" << endl;
 	return EXIT_SUCCESS;

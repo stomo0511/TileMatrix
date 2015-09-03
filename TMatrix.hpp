@@ -22,6 +22,9 @@ private:
 	unsigned int q_;    // number of column tiles
 
 public:
+	// Default constructor
+	TMatrix();
+
 	// Constructor
 	TMatrix( const unsigned int M, const unsigned int N,
 			const unsigned int mb, const unsigned int nb,
@@ -38,7 +41,11 @@ public:
 	unsigned int p()  const { return p_; }
 	unsigned int q()  const { return q_; }
 
+	// Assign random numbers to the elements
+	void Set_Rnd( const unsigned seed );
+
 	// Operator overload
+	BMatrix* operator[]( const unsigned int i ) const;
 	BMatrix* operator()( const unsigned int i, const unsigned int j ) const;
 };
 

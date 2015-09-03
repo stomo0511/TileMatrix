@@ -30,6 +30,15 @@ public:
 	unsigned int m() const { return m_; }
 	unsigned int n() const { return n_; }
 
+	// Show elements to the standard output
+	void Show_all() const;
+
+	// Assign random numbers to the elements
+	void Set_Rnd( const unsigned seed );
+
+	// Assign the value to (i,j) element
+	void Set_Val( const unsigned int i, const unsigned int j, const double val );
+
 	// Operator overload
 	Matrix &operator=( const Matrix& T );
 	double &operator[]( const unsigned int i ) const;
