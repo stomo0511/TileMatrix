@@ -17,25 +17,49 @@ int main( int argc, char* argv[] )
 {
 	cout << "Matrix block start" << endl;
 	{
-		Matrix A(100,50);
+		Matrix A(25,25);
 		cout << "m = " << A.m() << ", n = " << A.n() << endl;
+		A.Set_Rnd(20151121);
+		A.Show_all();
+		A.Set_Iden();
+		A.Show_all();
+		A.Set_Zero();
+		A.Show_all();
 	}
 	cout << "Matrix block end" << endl;
+
 	cout << endl << "BMatrix block start" << endl;
 	{
-		BMatrix A(100,10,5);
+		BMatrix A(25,25,5);
 		cout << A(0,0) << endl;
 		cout << "m = " << A.m() << ", n = " << A.n() << ", ib = " << A.ib() << endl;
+		A.Set_Rnd(20151121);
+		A.Show_all();
+
+		A.Set_Iden();
+		A.Show_all();
+
+		A.Set_Zero();
+		A.Show_all();
+
+		A.Set_Rnd(20151121);
+		BMatrix B = A;
+		B.Show_all();
+		cout << "B.m = " << B.m() << ", B.n = " << B.n() << ", B.ib = " << B.ib() << endl;
 	}
 	cout << "BMatrix block start" << endl;
+
 	cout << endl << "TMatrix block start" << endl;
 	{
 		TMatrix A(20,18,10,10,5);
 		cout << "M = " << A.M() << ", n = " << A.N() << ", mb = " << A.mb() << ", nb = " << A.nb();
 		cout << ", mt = " << A.mt() << ", nt = " << A.nt() << endl;
 
-		A.Set_Rnd(20150903);
-//		cout << (A[0]) << endl;
+		A.Set_Rnd(20151121);
+		A(0,0)->Show_all();
+
+		A.Set_Iden();
+		A(1,1)->Show_all();
 	}
 	cout << "TMatrix block end" << endl;
 

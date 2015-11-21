@@ -22,6 +22,9 @@ public:
 	// Constructor
 	BMatrix( const int m, const int n, const int ib );
 
+	// Copy constructor
+	BMatrix( const BMatrix& T );
+
 	// Destructor
 	virtual ~BMatrix();
 

@@ -31,7 +31,7 @@ public:
 			const int ib );
 
 	// Copy constructor
-	TMatrix( const TMatrix& T );
+	TMatrix( const TMatrix& T );  // Not Yet
 
 	// Destructor
 	virtual ~TMatrix();
@@ -55,8 +55,8 @@ public:
 	BMatrix* operator()( const int i, const int j ) const;
 
 	// Save TMatrix to the file
-	void File_Out( const char* fname );
-	void File_Out( const char* fname, const unsigned dig );
+	void File_Out( const char* fname );  // Not Yet
+	void File_Out( const char* fname, const unsigned dig );  // Not Yet
 
 	// copy matrix elements to the Matrix class
 	void Mat_Copy( Matrix& A );

@@ -89,54 +89,6 @@ TMatrix::TMatrix( const int M, const int N,
  *
  * @param T TMatrix object
   */
-TMatrix::TMatrix( const TMatrix& T )
-{
-	#ifdef DEBUG
-	cout << "TMatrix(T)\n";
-	#endif
-
-	assert( T.top_ != NULL );
-
-	M_ = T.M_;
-	N_ = T.N_;
-	mb_ = T.mb_;
-	nb_ = T.nb_;
-	mt_ = M_ % mb_ == 0 ? M_ / mb_ : M_ / mb_ + 1;
-	nt_ = N_ % nb_ == 0 ? N_ / nb_ : N_ / nb_ + 1;
-
-	try
-	{
-		top_ = new BMatrix* [ mt_ * nt_ ];
-	}
-	catch (char* eb)
-	{
-		cerr << "Can't allocate memory space for TMatrix class: " << eb << endl;
-		exit(EXIT_FAILURE);
-	}
-
-	for (int j=0; j<nt_; j++)
-		for (int i=0; i<mt_; i++)
-		{
-			int tm = ( i != mt_-1 ) ? mb_ : M_ - i * mb_;
-			int tn = ( j != nt_-1 ) ? nb_ : N_ - j * nb_;
-			try
-			{
-				top_[ i + j * mt_ ] = new BMatrix( tm, tn, ib );
-			}
-			catch (char* eb)
-			{
-				cerr << "Can't allocate memory space for TMatrix class: " << eb << endl;
-				exit(EXIT_FAILURE);
-			}
-
-			#ifdef DEBUG
-			cout << "BMatrix(" << (top_[ i + j * mt_ ])->m() << ",";
-			cout << (top_[ i + j * mt_ ])->n() << ",";
-			cout << (top_[ i + j * mt_ ])->ib() << ")\n";
-//			cout << "top_[" << i + j * mt_ << "] = " << &top_[ i + j * mt_ ] << endl;
-			#endif
-		}
-}
 
 /**
  * Destructor
@@ -144,19 +96,19 @@ TMatrix::TMatrix( const TMatrix& T )
  */
 TMatrix::~TMatrix()
 {
-#ifdef DEBUG
+	#ifdef DEBUG
 	cout << "\n~TMatrix()\n";
-#endif
+	#endif
 
 	for (int j=0; j<nt_; j++)
 		for (int i=0; i<mt_; i++)
 		{
-#ifdef DEBUG
+			#ifdef DEBUG
 			cout << "BMatrix(" << (top_[ i + j * mt_ ])->m() << ",";
 			cout << (top_[ i + j * mt_ ])->n() << ",";
 			cout << (top_[ i + j * mt_ ])->ib() << ")\n";
 //			cout << "top_[" << i + j * mt_ << "] = " << &top_[ i + j * mt_ ] << endl;
-#endif
+			#endif
 			delete top_[ i + j * mt_ ];
 		}
 	delete [] top_;
@@ -169,22 +121,36 @@ TMatrix::~TMatrix()
  */
 void TMatrix::Set_Rnd( const unsigned seed )
 {
-  Matrix Tmp(M_,N_);
-  Tmp.Set_Rnd( seed );
+	Matrix Tmp(M_,N_);
+	Tmp.Set_Rnd( seed );
 
-  // (I,J) : Index of the elements of Matrix
-  for (int I = 0; I < N_; I++) {
-    for (int J = 0; J < N_; J++) {
-      // (ti,tj) : Tile Index
-      int ti = I / mb_;
-      int tj = J / nb_;
-      // (i,j) : Index of the elements of Tile
-      int i = I % mb_;
-      int j = J % nb_;
+	// (I,J) : Index of the elements of Matrix
+	for (int I = 0; I < N_; I++) {
+		for (int J = 0; J < N_; J++) {
+			// (ti,tj) : Tile Index
+			int ti = I / mb_;
+			int tj = J / nb_;
+			// (i,j) : Index of the elements of Tile
+			int i = I % mb_;
+			int j = J % nb_;
 
-      top_[ ti + tj * nt_ ]->Set_Val(i, j, Tmp(I,J));
-    }
-  }
+			top_[ ti + tj * nt_ ]->Set_Val(i, j, Tmp(I,J));
+		}
+	}
+}
+
+/**
+ * Set matrix to the identity matrix
+ *
+ */
+void TMatrix::Set_Iden()
+{
+	for (int i=0; i<mt_; i++)
+		for (int j=0; j<nt_; j++)
+			if ( i == j )
+				top_[ i + j*mt_ ]->Set_Iden();
+			else
+				top_[ i + j*mt_ ]->Set_Zero();
 }
 
 /**
@@ -195,8 +161,33 @@ void TMatrix::Set_Rnd( const unsigned seed )
  */
 BMatrix* TMatrix::operator()( const int i, const int j ) const
 {
-	assert( i > 0 && j > 0 );
+	assert( i >= 0 && j >= 0 );
 	assert( i < mt_ && j < nt_ );
 
 	return top_[ i + j * mt_ ];
 }
+
+/*
+ * copy matrix elements to the Matrix class
+ */
+void TMatrix::Mat_Copy( Matrix& A )
+{
+	assert( M_ == A.m() ); assert( N_ == A.n() );
+
+	double val;
+	for (int I=0; I<M_; I++ )
+		for (int J=0; J<N_; J++)
+		{
+			// (ti,tj) : Tile index
+			int ti = I / mb_;
+			int tj = J / nb_;
+
+			// (i,j) : Index of the tile elements
+			int i = I % mb_;
+			int j = J % nb_;
+
+			val = top_[ ti + tj*mt_ ]->operator ()(i,j);
+			A.Set_Val(I,J,val);
+		}
+}
+

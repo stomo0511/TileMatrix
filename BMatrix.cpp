@@ -43,6 +43,22 @@ BMatrix::BMatrix( const int m, const int n, const int ib ) : Matrix(m,n)
 }
 
 /**
+ * Copy constructor
+ *
+ * @param T BMatrix object
+ */
+BMatrix::BMatrix( const BMatrix& T ) : Matrix(T)
+{
+	#ifdef DEBUG
+	cout << "BMatrix(T)\n";
+	#endif
+
+	assert( T.top_ != NULL );
+
+	ib_ = T.ib_;
+}
+
+/**
  * Destructor
  *
  */
