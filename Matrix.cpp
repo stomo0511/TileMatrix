@@ -17,9 +17,9 @@ using namespace std;
  */
 Matrix::Matrix()
 {
-#ifdef DEBUG
-	cout << "Matrix()\n";
-#endif
+//	#ifdef DEBUG
+//	cout << "Matrix()\n";
+//	#endif
 
 	m_ = n_ = 0;
 	top_ = NULL;
@@ -33,9 +33,9 @@ Matrix::Matrix()
  */
 Matrix::Matrix( const unsigned int m, const unsigned int n )
 {
-#ifdef DEBUG
-	cout << "Matrix(m,n)\n";
-#endif
+//	#ifdef DEBUG
+//	cout << "Matrix(m,n)\n";
+//	#endif
 
 	assert( m > 0 );
 	assert( n > 0 );
@@ -60,9 +60,9 @@ Matrix::Matrix( const unsigned int m, const unsigned int n )
  */
 Matrix::~Matrix()
 {
-#ifdef DEBUG
-	cout << "~Matrix()\n";
-#endif
+//	#ifdef DEBUG
+//	cout << "~Matrix()\n";
+//	#endif
 
 	delete [] top_;
 }
