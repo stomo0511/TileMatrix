@@ -15,10 +15,10 @@ $(LIBS):	$(LOBJS)
 $(TARGET):	TileMatrixTest.o $(LIBS)
 	$(CXX) $(CXXFLAGS) -o $@ TileMatrixTest.o $(LIBS)
 
-all:	$(LIBS)
+all:	$(LIBS) $(TARGET)
 
 clean:
-	rm -f $(LOBJS) $(LIBS)
+	rm -f *.o $(LIBS) $(TARGET)
 
 .cpp.o :
 	$(CXX) $(CXXFLAGS) -c $<

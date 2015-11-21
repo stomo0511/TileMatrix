@@ -22,6 +22,9 @@ public:
 	// Constructor
 	Matrix( const int m, const int n );
 
+	// Copy constructor
+	Matrix( const Matrix& T );
+
 	// Destructor
 	virtual ~Matrix();
 
@@ -35,6 +38,12 @@ public:
 
 	// Assign random numbers to the elements
 	void Set_Rnd( const unsigned seed );
+
+	// Set matrix to the identity matrix
+	void Set_Iden();
+
+	// Set matrix to the zero matrix
+	void Set_Zero();
 
 	// Assign the value to (i,j) element
 	void Set_Val( const int i, const int j, const double val );

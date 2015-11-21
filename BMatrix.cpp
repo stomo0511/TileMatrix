@@ -17,9 +17,9 @@ using namespace std;
  */
 BMatrix::BMatrix() : Matrix()
 {
-#ifdef DEBUG
+	#ifdef DEBUG
 	cout << "BMatrix()\n";
-#endif
+	#endif
 
 	ib_ = 0;
 }
@@ -32,9 +32,9 @@ BMatrix::BMatrix() : Matrix()
  */
 BMatrix::BMatrix( const int m, const int n, const int ib ) : Matrix(m,n)
 {
-#ifdef DEBUG
+	#ifdef DEBUG
 	cout << "BMatrix(m,n,ib)\n";
-#endif
+	#endif
 
 	assert( ib > 0 );
 	assert( ib < m );
@@ -48,7 +48,7 @@ BMatrix::BMatrix( const int m, const int n, const int ib ) : Matrix(m,n)
  */
 BMatrix::~BMatrix()
 {
-#ifdef DEBUG
+	#ifdef DEBUG
 	cout << "~BMatrix()\n";
-#endif
+	#endif
 }

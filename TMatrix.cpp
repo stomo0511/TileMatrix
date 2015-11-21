@@ -18,11 +18,11 @@ using namespace std;
  */
 TMatrix::TMatrix()
 {
-#ifdef DEBUG
+	#ifdef DEBUG
 	cout << "TMatrix()\n";
-#endif
+	#endif
 
-	M_ = N_ = mb_ = nb_ = p_ = q_ = 0;
+	M_ = N_ = mb_ = nb_ = mt_ = nt_ = 0;
 	top_ = NULL;
 }
 
@@ -36,9 +36,9 @@ TMatrix::TMatrix( const int M, const int N,
 		const int mb, const int nb,
 		const int ib )
 {
-#ifdef DEBUG
+	#ifdef DEBUG
 	cout << "TMatrix(M,N,mb,nb,ib)\n";
-#endif
+	#endif
 
 	assert( M > 0 && N > 0 && mb > 0 && nb > 0 && ib > 0);
 	assert( mb < M && nb < N && ib < nb );
@@ -47,12 +47,12 @@ TMatrix::TMatrix( const int M, const int N,
 	N_ = N;
 	mb_ = mb;
 	nb_ = nb;
-	p_ = M_ % mb_ == 0 ? M_ / mb_ : M_ / mb_ + 1;
-	q_ = N_ % nb_ == 0 ? N_ / nb_ : N_ / nb_ + 1;
+	mt_ = M_ % mb_ == 0 ? M_ / mb_ : M_ / mb_ + 1;
+	nt_ = N_ % nb_ == 0 ? N_ / nb_ : N_ / nb_ + 1;
 
 	try
 	{
-		top_ = new BMatrix* [ p_ * q_ ];
+		top_ = new BMatrix* [ mt_ * nt_ ];
 	}
 	catch (char* eb)
 	{
@@ -60,26 +60,81 @@ TMatrix::TMatrix( const int M, const int N,
 		exit(EXIT_FAILURE);
 	}
 
-	for (int j=0; j<q_; j++)
-		for (int i=0; i<p_; i++)
+	for (int j=0; j<nt_; j++)
+		for (int i=0; i<mt_; i++)
 		{
-			int tm = ( i != p_-1 ) ? mb_ : M_ - i * mb_;
-			int tn = ( j != q_-1 ) ? nb_ : N_ - j * nb_;
+			int tm = ( i != mt_-1 ) ? mb_ : M_ - i * mb_;
+			int tn = ( j != nt_-1 ) ? nb_ : N_ - j * nb_;
 			try
 			{
-				top_[ i + j * p_ ] = new BMatrix( tm, tn, ib );
+				top_[ i + j * mt_ ] = new BMatrix( tm, tn, ib );
 			}
 			catch (char* eb)
 			{
 				cerr << "Can't allocate memory space for TMatrix class: " << eb << endl;
 				exit(EXIT_FAILURE);
 			}
-#ifdef DEBUG
-			cout << "BMatrix(" << (top_[ i + j * p_ ])->m() << ",";
-			cout << (top_[ i + j * p_ ])->n() << ",";
-			cout << (top_[ i + j * p_ ])->ib() << ")\n";
-//			cout << "top_[" << i + j * p_ << "] = " << &top_[ i + j * p_ ] << endl;
-#endif
+
+			#ifdef DEBUG
+			cout << "BMatrix(" << (top_[ i + j * mt_ ])->m() << ",";
+			cout << (top_[ i + j * mt_ ])->n() << ",";
+			cout << (top_[ i + j * mt_ ])->ib() << ")\n";
+//			cout << "top_[" << i + j * mt_ << "] = " << &top_[ i + j * mt_ ] << endl;
+			#endif
+		}
+}
+
+/**
+ * Copy constructor
+ *
+ * @param T TMatrix object
+  */
+TMatrix::TMatrix( const TMatrix& T )
+{
+	#ifdef DEBUG
+	cout << "TMatrix(T)\n";
+	#endif
+
+	assert( T.top_ != NULL );
+
+	M_ = T.M_;
+	N_ = T.N_;
+	mb_ = T.mb_;
+	nb_ = T.nb_;
+	mt_ = M_ % mb_ == 0 ? M_ / mb_ : M_ / mb_ + 1;
+	nt_ = N_ % nb_ == 0 ? N_ / nb_ : N_ / nb_ + 1;
+
+	try
+	{
+		top_ = new BMatrix* [ mt_ * nt_ ];
+	}
+	catch (char* eb)
+	{
+		cerr << "Can't allocate memory space for TMatrix class: " << eb << endl;
+		exit(EXIT_FAILURE);
+	}
+
+	for (int j=0; j<nt_; j++)
+		for (int i=0; i<mt_; i++)
+		{
+			int tm = ( i != mt_-1 ) ? mb_ : M_ - i * mb_;
+			int tn = ( j != nt_-1 ) ? nb_ : N_ - j * nb_;
+			try
+			{
+				top_[ i + j * mt_ ] = new BMatrix( tm, tn, ib );
+			}
+			catch (char* eb)
+			{
+				cerr << "Can't allocate memory space for TMatrix class: " << eb << endl;
+				exit(EXIT_FAILURE);
+			}
+
+			#ifdef DEBUG
+			cout << "BMatrix(" << (top_[ i + j * mt_ ])->m() << ",";
+			cout << (top_[ i + j * mt_ ])->n() << ",";
+			cout << (top_[ i + j * mt_ ])->ib() << ")\n";
+//			cout << "top_[" << i + j * mt_ << "] = " << &top_[ i + j * mt_ ] << endl;
+			#endif
 		}
 }
 
@@ -93,16 +148,16 @@ TMatrix::~TMatrix()
 	cout << "\n~TMatrix()\n";
 #endif
 
-	for (int j=0; j<q_; j++)
-		for (int i=0; i<p_; i++)
+	for (int j=0; j<nt_; j++)
+		for (int i=0; i<mt_; i++)
 		{
 #ifdef DEBUG
-			cout << "BMatrix(" << (top_[ i + j * p_ ])->m() << ",";
-			cout << (top_[ i + j * p_ ])->n() << ",";
-			cout << (top_[ i + j * p_ ])->ib() << ")\n";
-//			cout << "top_[" << i + j * p_ << "] = " << &top_[ i + j * p_ ] << endl;
+			cout << "BMatrix(" << (top_[ i + j * mt_ ])->m() << ",";
+			cout << (top_[ i + j * mt_ ])->n() << ",";
+			cout << (top_[ i + j * mt_ ])->ib() << ")\n";
+//			cout << "top_[" << i + j * mt_ << "] = " << &top_[ i + j * mt_ ] << endl;
 #endif
-			delete top_[ i + j * p_ ];
+			delete top_[ i + j * mt_ ];
 		}
 	delete [] top_;
 }
@@ -127,7 +182,7 @@ void TMatrix::Set_Rnd( const unsigned seed )
       int i = I % mb_;
       int j = J % nb_;
 
-      top_[ ti + tj * q_ ]->Set_Val(i, j, Tmp(I,J));
+      top_[ ti + tj * nt_ ]->Set_Val(i, j, Tmp(I,J));
     }
   }
 }
@@ -141,7 +196,7 @@ void TMatrix::Set_Rnd( const unsigned seed )
 BMatrix* TMatrix::operator()( const int i, const int j ) const
 {
 	assert( i > 0 && j > 0 );
-	assert( i < p_ && j < q_ );
+	assert( i < mt_ && j < nt_ );
 
-	return top_[ i + j * p_ ];
+	return top_[ i + j * mt_ ];
 }

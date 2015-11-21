@@ -32,7 +32,7 @@ int main( int argc, char* argv[] )
 	{
 		TMatrix A(20,18,10,10,5);
 		cout << "M = " << A.M() << ", n = " << A.N() << ", mb = " << A.mb() << ", nb = " << A.nb();
-		cout << ", p = " << A.p() << ", q = " << A.q() << endl;
+		cout << ", mt = " << A.mt() << ", nt = " << A.nt() << endl;
 
 		A.Set_Rnd(20150903);
 //		cout << (A[0]) << endl;

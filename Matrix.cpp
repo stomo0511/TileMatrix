@@ -17,9 +17,9 @@ using namespace std;
  */
 Matrix::Matrix()
 {
-//	#ifdef DEBUG
-//	cout << "Matrix()\n";
-//	#endif
+	#ifdef DEBUG
+	cout << "Matrix()\n";
+	#endif
 
 	m_ = n_ = 0;
 	top_ = NULL;
@@ -33,9 +33,9 @@ Matrix::Matrix()
  */
 Matrix::Matrix( const int m, const int n )
 {
-//	#ifdef DEBUG
-//	cout << "Matrix(m,n)\n";
-//	#endif
+	#ifdef DEBUG
+	cout << "Matrix(m,n)\n";
+	#endif
 
 	assert( m > 0 );
 	assert( n > 0 );
@@ -55,14 +55,44 @@ Matrix::Matrix( const int m, const int n )
 }
 
 /**
+ * Copy Constructor
+ *
+ * @param T Matrix object
+ */
+Matrix::Matrix( const Matrix& T )
+{
+	#ifdef DEBUG
+	cout << "Matrix(m,n)\n";
+	#endif
+
+	assert( T.top_ != NULL );
+
+	m_ = T.m_;
+	n_ = T.n_;
+
+	try
+	{
+		top_ = new double[ m_ * n_ ];
+	}
+	catch (char *eb)
+	{
+		cerr << "Can't allocate memory space for Matrix class: " << eb << endl;
+		exit(EXIT_FAILURE);
+	}
+
+	for (int i=0; i< m_ * n_; i++)
+		top_[i] = T.top_[i];
+}
+
+/**
  * Destructor
  *
  */
 Matrix::~Matrix()
 {
-//	#ifdef DEBUG
-//	cout << "~Matrix()\n";
-//	#endif
+	#ifdef DEBUG
+	cout << "~Matrix()\n";
+	#endif
 
 	delete [] top_;
 }
@@ -93,6 +123,25 @@ void Matrix::Set_Rnd( const unsigned seed )
 	srand(seed);
 	for (int i = 0; i < m_ * n_; i++)
 		top_[i] = (double)rand() / RAND_MAX;
+}
+
+/**
+ * Set matrix to the identity matrix
+ */
+void Matrix::Set_Iden()
+{
+	for (int i=0; i<m_; i++)
+		for (int j=0; j<n_; j++)
+			top_[ i + j*m_ ] = ( i == j ) ? (double)(1) : (double)(0);
+}
+
+/**
+ * Set matrix to the zero matrix
+ */
+void Matrix::Set_Zero()
+{
+	for (int i=0; i< m_ * n_; i++)
+		top_[i] = (double)0;
 }
 
 /**
