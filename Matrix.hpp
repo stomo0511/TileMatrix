@@ -11,24 +11,24 @@
 class Matrix {
 
 protected:
-	double* top_;		// pointer to the matrix
-	unsigned int m_;	// number of lows of the matrix or lda
-	unsigned int n_;	// number of columns of the matrix
+	double* top_;	// pointer to the matrix
+	int m_;			// number of lows of the matrix or lda
+	int n_;			// number of columns of the matrix
 
 public:
 	// Default constructor
 	Matrix();
 
 	// Constructor
-	Matrix( const unsigned int m, const unsigned int n );
+	Matrix( const int m, const int n );
 
 	// Destructor
 	virtual ~Matrix();
 
 	// Getters
 	double* top() { return top_; }
-	unsigned int m() const { return m_; }
-	unsigned int n() const { return n_; }
+	int m() const { return m_; }
+	int n() const { return n_; }
 
 	// Show elements to the standard output
 	void Show_all() const;
@@ -37,12 +37,12 @@ public:
 	void Set_Rnd( const unsigned seed );
 
 	// Assign the value to (i,j) element
-	void Set_Val( const unsigned int i, const unsigned int j, const double val );
+	void Set_Val( const int i, const int j, const double val );
 
 	// Operator overload
 	Matrix &operator=( const Matrix& T );
-	double &operator[]( const unsigned int i ) const;
-	double &operator()( const unsigned int i, const unsigned int j ) const;
+	double &operator[]( const int i ) const;
+	double &operator()( const int i, const int j ) const;
 };
 
 #endif /* MATRIX_HPP_ */

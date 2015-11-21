@@ -30,7 +30,7 @@ BMatrix::BMatrix() : Matrix()
  * @param m number of lows of the matrix
  * @param n number of columns of the matrix
  */
-BMatrix::BMatrix( const unsigned int m, const unsigned int n, const unsigned int ib ) : Matrix(m,n)
+BMatrix::BMatrix( const int m, const int n, const int ib ) : Matrix(m,n)
 {
 #ifdef DEBUG
 	cout << "BMatrix(m,n,ib)\n";

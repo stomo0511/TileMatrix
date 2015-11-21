@@ -1,6 +1,6 @@
 CXX = /usr/local/bin/g++
-#CXXFLAGS = -g -Wall -DDEBUG
-CXXFLAGS = -g -Wall
+CXXFLAGS = -g -Wall -DDEBUG
+#CXXFLAGS = -O3 -Wall
 
 LOBJS =		Matrix.o BMatrix.o TMatrix.o
 
@@ -15,10 +15,10 @@ $(LIBS):	$(LOBJS)
 $(TARGET):	TileMatrixTest.o $(LIBS)
 	$(CXX) $(CXXFLAGS) -o $@ TileMatrixTest.o $(LIBS)
 
-all:	$(LIBS) $(TARGET)
+all:	$(LIBS)
 
 clean:
-	rm -f $(LOBJS) $(LIBS) $(TARGET)
+	rm -f $(LOBJS) $(LIBS)
 
 .cpp.o :
 	$(CXX) $(CXXFLAGS) -c $<

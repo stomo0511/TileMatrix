@@ -31,7 +31,7 @@ Matrix::Matrix()
  * @param m number of lows of the matrix
  * @param n number of columns of the matrix
  */
-Matrix::Matrix( const unsigned int m, const unsigned int n )
+Matrix::Matrix( const int m, const int n )
 {
 //	#ifdef DEBUG
 //	cout << "Matrix(m,n)\n";
@@ -72,8 +72,8 @@ Matrix::~Matrix()
  */
 void Matrix::Show_all() const
 {
-	for (unsigned int i = 0; i < m_; i++) {
-		for (unsigned int j = 0; j < n_; j++) {
+	for (int i = 0; i < m_; i++) {
+		for (int j = 0; j < n_; j++) {
 			cout << top_[ i + j * m_ ] << " ";
 		}
 		cout << endl;
@@ -91,7 +91,7 @@ void Matrix::Set_Rnd( const unsigned seed )
 	assert( seed >= 0 );
 
 	srand(seed);
-	for (unsigned int i = 0; i < m_ * n_; i++)
+	for (int i = 0; i < m_ * n_; i++)
 		top_[i] = (double)rand() / RAND_MAX;
 }
 
@@ -102,7 +102,7 @@ void Matrix::Set_Rnd( const unsigned seed )
  * @param j horizontal index of the element
  * @param val element value
  */
-void Matrix::Set_Val( const unsigned int i, const unsigned int j, const double val )
+void Matrix::Set_Val( const int i, const int j, const double val )
 {
 	assert( i >= 0 );	assert( i < m_ );
 	assert( j >= 0 );	assert( j < n_ );
@@ -118,7 +118,7 @@ Matrix &Matrix::operator=( const Matrix &T )
 	assert( m_ == T.m_ );
 	assert( n_ == T.n_ );
 
-	for (unsigned int i = 0; i < m_ * n_; i++)
+	for (int i = 0; i < m_ * n_; i++)
 		top_[i] = T.top_[i];
 
 	return *this;
@@ -129,7 +129,7 @@ Matrix &Matrix::operator=( const Matrix &T )
  *
  * @param i index
  */
-double &Matrix::operator[]( const unsigned int i ) const
+double &Matrix::operator[]( const int i ) const
 {
 	assert( i >= 0 );
 	assert( i < m_ * n_ );
@@ -143,7 +143,7 @@ double &Matrix::operator[]( const unsigned int i ) const
  * @param i low index
  * @param j column index
  */
-double &Matrix::operator()( const unsigned int i, const unsigned int j ) const
+double &Matrix::operator()( const int i, const int j ) const
 {
 	assert( i >= 0 );  assert( i < m_ );
 	assert( j >= 0 );  assert( j < n_ );

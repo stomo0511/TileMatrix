@@ -13,20 +13,20 @@
 class BMatrix : public Matrix {
 
 protected:
-	unsigned int ib_;	// block size
+	int ib_;	// block size
 
 public:
 	// Default constructor
 	BMatrix();
 
 	// Constructor
-	BMatrix( const unsigned int m, const unsigned int n, const unsigned int ib );
+	BMatrix( const int m, const int n, const int ib );
 
 	// Destructor
 	virtual ~BMatrix();
 
 	// Getters
-	 unsigned int ib() { return ib_; }
+	 int ib() { return ib_; }
 };
 
 #endif /* BMATRIX_HPP_ */
