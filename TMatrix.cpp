@@ -79,7 +79,6 @@ TMatrix::TMatrix( const int M, const int N,
 			cout << "BMatrix(" << (top_[ i + j * mt_ ])->m() << ",";
 			cout << (top_[ i + j * mt_ ])->n() << ",";
 			cout << (top_[ i + j * mt_ ])->ib() << ")\n";
-//			cout << "top_[" << i + j * mt_ << "] = " << &top_[ i + j * mt_ ] << endl;
 			#endif
 		}
 }
@@ -89,6 +88,58 @@ TMatrix::TMatrix( const int M, const int N,
  *
  * @param T TMatrix object
   */
+TMatrix::TMatrix( const TMatrix& T )
+{
+	#ifdef DEBUG
+	cout << "TMatrix(T)\n";
+	#endif
+
+	assert( T.top_ != NULL );
+
+	M_ = T.M_;
+	N_ = T.N_;
+	mb_ = T.mb_;
+	nb_ = T.nb_;
+	mt_ = M_ % mb_ == 0 ? M_ / mb_ : M_ / mb_ + 1;
+	nt_ = N_ % nb_ == 0 ? N_ / nb_ : N_ / nb_ + 1;
+	int ib = T(0,0)->ib();
+
+	try
+	{
+		top_ = new BMatrix* [ mt_ * nt_ ];
+	}
+	catch (char* eb)
+	{
+		cerr << "Can't allocate memory space for TMatrix class: " << eb << endl;
+		exit(EXIT_FAILURE);
+	}
+
+	for (int j=0; j<nt_; j++)
+		for (int i=0; i<mt_; i++)
+		{
+			int tm = ( i != mt_-1 ) ? mb_ : M_ - i * mb_;
+			int tn = ( j != nt_-1 ) ? nb_ : N_ - j * nb_;
+			try
+			{
+				top_[ i + j * mt_ ] = new BMatrix( tm, tn, ib );
+			}
+			catch (char* eb)
+			{
+				cerr << "Can't allocate memory space for TMatrix class: " << eb << endl;
+				exit(EXIT_FAILURE);
+			}
+
+			// Copy all entries of T(i,j)
+			for (int k=0; k<tm*tn; k++)
+				(top_[ i + j*mt_ ])->operator [](k) = (T.top_[ i + j*mt_ ])->operator [](k);
+
+			#ifdef DEBUG
+			cout << "BMatrix(" << (top_[ i + j * mt_ ])->m() << ",";
+			cout << (top_[ i + j * mt_ ])->n() << ",";
+			cout << (top_[ i + j * mt_ ])->ib() << ")\n";
+			#endif
+		}
+}
 
 /**
  * Destructor

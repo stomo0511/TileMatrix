@@ -31,7 +31,7 @@ public:
 			const int ib );
 
 	// Copy constructor
-	TMatrix( const TMatrix& T );  // Not Yet
+	TMatrix( const TMatrix& T );
 
 	// Destructor
 	virtual ~TMatrix();

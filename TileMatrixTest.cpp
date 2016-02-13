@@ -30,10 +30,10 @@ int main( int argc, char* argv[] )
 //		B.Show_all();
 //	}
 //	cout << "Matrix block end" << endl;
-//
+
 //	cout << endl << "BMatrix block start" << endl;
 //	{
-//		BMatrix A(25,25,5);
+//		BMatrix A(10,10,5);
 //		cout << A(0,0) << endl;
 //		cout << "m = " << A.m() << ", n = " << A.n() << ", ib = " << A.ib() << endl;
 //		A.Set_Rnd(20151121);
@@ -56,7 +56,7 @@ int main( int argc, char* argv[] )
 	{
 		TMatrix A(20,18,10,10,5);
 		cout << "M = " << A.M() << ", n = " << A.N() << ", mb = " << A.mb() << ", nb = " << A.nb();
-		cout << ", mt = " << A.mt() << ", nt = " << A.nt() << endl;
+		cout << ", mt = " << A.mt() << ", nt = " << A.nt() << endl << endl;
 
 		A.Set_Rnd(20151121);
 		A(0,0)->Show_all();
@@ -64,8 +64,9 @@ int main( int argc, char* argv[] )
 		A.Set_Iden();
 		A(1,1)->Show_all();
 
-//		TMatrix B = A;
-//		B(1,1)->Show_all();
+		A.Set_Rnd(20151121);
+		TMatrix B = A;
+		B(0,0)->Show_all();
 	}
 	cout << "TMatrix block end" << endl;
 
