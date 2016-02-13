@@ -6,6 +6,7 @@
  */
 
 #include <iostream>
+#include <fstream>
 #include <cstdlib>
 #include <cassert>
 #include "Matrix.hpp"
@@ -198,4 +199,56 @@ double &Matrix::operator()( const int i, const int j ) const
 	assert( j >= 0 );  assert( j < n_ );
 
 	return top_[ i + j * m_ ];
+}
+
+/**
+ * Save matrix elements to the file
+ *
+ * @param fname data file name
+ */
+void Matrix::File_Out( const char* fname )
+{
+	ofstream matf(fname);
+	if (!matf) {
+		std::cerr << "Unable to open " << fname << std::endl;
+		exit(1);
+	}
+
+	matf << m_ << std::endl;
+	matf << n_ << std::endl;
+	for (int i = 0; i < m_; i++) {
+		for (int j = 0; j < n_; j++) {
+			matf << top_[ i + j * m_ ] << " ";
+		}
+		matf << std::endl;
+	}
+	matf.close();
+}
+
+
+
+/**
+ * Save matrix elements to the file
+ *
+ * @param fname data file name
+ * @param dig number of output digit
+ */
+void Matrix::File_Out( const char* fname, const unsigned dig )
+{
+	ofstream matf(fname);
+	if (!matf) {
+		std::cerr << "Unable to open " << fname << std::endl;
+		exit(1);
+	}
+
+	matf << m_ << std::endl;
+	matf << n_ << std::endl;
+	matf.precision(dig);
+	for (int i = 0; i < m_; i++) {
+		for (int j = 0; j < n_; j++) {
+			matf << top_[ i + j * m_ ] << " ";
+		}
+		matf << std::endl;
+	}
+	matf.close();
 }

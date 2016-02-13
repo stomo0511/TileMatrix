@@ -158,7 +158,6 @@ TMatrix::~TMatrix()
 			cout << "BMatrix(" << (top_[ i + j * mt_ ])->m() << ",";
 			cout << (top_[ i + j * mt_ ])->n() << ",";
 			cout << (top_[ i + j * mt_ ])->ib() << ")\n";
-//			cout << "top_[" << i + j * mt_ << "] = " << &top_[ i + j * mt_ ] << endl;
 			#endif
 			delete top_[ i + j * mt_ ];
 		}
@@ -216,6 +215,59 @@ BMatrix* TMatrix::operator()( const int i, const int j ) const
 	assert( i < mt_ && j < nt_ );
 
 	return top_[ i + j * mt_ ];
+}
+
+/**
+ * Save matrix elements to the file
+ *
+ * @param fname data file name
+ */
+void TMatrix::File_Out( const char* fname )
+{
+	  Matrix Tmp(M_,N_);
+
+	  // (I,J) : Index of the elements of Matrix
+	  for (int I = 0; I < M_; I++) {
+		for (int J = 0; J < N_; J++) {
+		  // (ti,tj) : Tile Index
+		  int ti = I / mb_;
+		  int tj = J / nb_;
+		  // (i,j) : Index of the elements of Tile
+		  int i = I % mb_;
+		  int j = J % nb_;
+
+		  double val = top_[ ti + tj*mt_ ]->operator()(i, j);
+		  Tmp.Set_Val( I, J, val );
+		}
+	  }
+	  Tmp.File_Out( fname );
+}
+
+/**
+ * Save matrix elements to the file
+ *
+ * @param fname data file name
+ * @param dig number of output digit
+ */
+void TMatrix::File_Out( const char* fname, const unsigned dig )
+{
+	Matrix Tmp(M_,N_);
+
+	// (I,J) : Index of the elements of Matrix
+	for (int I = 0; I < M_; I++) {
+		for (int J = 0; J < N_; J++) {
+			// (ti,tj) : Tile Index
+			int ti = I / mb_;
+			int tj = J / nb_;
+			// (i,j) : Index of the elements of Tile
+			int i = I % mb_;
+			int j = J % nb_;
+
+			double val = top_[ ti + tj*mt_ ]->operator()(i, j);
+			Tmp.Set_Val( I, J, val );
+		}
+	}
+	Tmp.File_Out( fname, dig );
 }
 
 /*

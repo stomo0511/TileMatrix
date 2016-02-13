@@ -52,6 +52,11 @@ public:
 	Matrix &operator=( const Matrix& T );
 	double &operator[]( const int i ) const;
 	double &operator()( const int i, const int j ) const;
+
+	// Save matrix elements to the file
+	void File_Out( const char* fname );
+	void File_Out( const char* fname, const unsigned dig );
+
 };
 
 #endif /* MATRIX_HPP_ */
