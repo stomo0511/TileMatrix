@@ -175,7 +175,7 @@ void TMatrix::Set_Rnd( const unsigned seed )
 	Tmp.Set_Rnd( seed );
 
 	// (I,J) : Index of the elements of Matrix
-	for (int I = 0; I < N_; I++) {
+	for (int I = 0; I < M_; I++) {
 		for (int J = 0; J < N_; J++) {
 			// (ti,tj) : Tile Index
 			int ti = I / mb_;
