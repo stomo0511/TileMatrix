@@ -60,6 +60,9 @@ public:
 
 	// copy matrix elements to the Matrix class
 	void Mat_Copy( Matrix& A );
+
+	// copy matrix elements to the array
+	void Array_Copy( double *array );
 };
 
 #endif /* TMATRIX_HPP_ */

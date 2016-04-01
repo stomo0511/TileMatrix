@@ -294,3 +294,26 @@ void TMatrix::Mat_Copy( Matrix& A )
 		}
 }
 
+/*
+ * copy matrix elements to the array
+ */
+void TMatrix::Array_Copy( double* array )
+{
+	assert( *array != NULL );
+
+	double val;
+	for (int I=0; I<M_; I++ )
+		for (int J=0; J<N_; J++)
+		{
+			// (ti,tj) : Tile index
+			int ti = I / mb_;
+			int tj = J / nb_;
+
+			// (i,j) : Index of the tile elements
+			int i = I % mb_;
+			int j = J % nb_;
+
+			array[ I + J*M_ ] = top_[ ti + tj*mt_ ]->operator ()(i,j);
+		}
+}
+
