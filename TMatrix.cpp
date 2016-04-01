@@ -299,9 +299,8 @@ void TMatrix::Mat_Copy( Matrix& A )
  */
 void TMatrix::Array_Copy( double* array )
 {
-	assert( *array != NULL );
+	assert( array != NULL );
 
-	double val;
 	for (int I=0; I<M_; I++ )
 		for (int J=0; J<N_; J++)
 		{
