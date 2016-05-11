@@ -41,7 +41,7 @@ TMatrix::TMatrix( const int M, const int N,
 	#endif
 
 	assert( M > 0 && N > 0 && mb > 0 && nb > 0 && ib > 0);
-	assert( mb < M && nb < N && ib < nb );
+	assert( mb <= M && nb <= N && ib <= nb );
 
 	M_ = M;
 	N_ = N;
@@ -141,6 +141,9 @@ TMatrix::TMatrix( const TMatrix& T )
 		}
 }
 
+//
+// Don't work well yet
+//
 /**
  * Destructor
  *
