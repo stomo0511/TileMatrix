@@ -22,7 +22,7 @@ DMatrix::DMatrix()
 	cout << "DMatrix()\n";
 	#endif
 
-	M_ = N_ = P_ = mb_ = nb_ = mt_ = nt_ = 0;
+	M_ = N_ = P_ = mb_ = nb_ = mt_ = nt_ = mtl_ = 0;
 	top_ = NULL;
 }
 
