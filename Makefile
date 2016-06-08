@@ -2,7 +2,7 @@ CXX = /usr/local/bin/g++
 #CXXFLAGS = -g -Wall -DDEBUG
 CXXFLAGS = -O3 -Wall
 
-LOBJS =		Matrix.o BMatrix.o TMatrix.o
+LOBJS =		Matrix.o BMatrix.o TMatrix.o DMatrix.o
 
 LIBS = libTileMatrix.a
 
