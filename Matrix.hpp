@@ -45,6 +45,9 @@ public:
 	// Set matrix to the zero matrix
 	void Set_Zero();
 
+	// Set matrix to the one matrix
+	void Set_One();
+
 	// Assign the value to (i,j) element
 	void Set_Val( const int i, const int j, const double val );
 

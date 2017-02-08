@@ -207,6 +207,28 @@ void TMatrix::Set_Iden()
 }
 
 /**
+ * Set matrix to the zero matrix
+ *
+ */
+void TMatrix::Set_Zero()
+{
+	for (int i=0; i<mt_; i++)
+		for (int j=0; j<nt_; j++)
+			top_[ i + j*mt_ ]->Set_Zero();
+}
+
+/**
+ * Set matrix to the one matrix
+ *
+ */
+void TMatrix::Set_One()
+{
+	for (int i=0; i<mt_; i++)
+		for (int j=0; j<nt_; j++)
+			top_[ i + j*mt_ ]->Set_One();
+}
+
+/**
  * Operator overload ()
  *
  * @param i low index

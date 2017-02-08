@@ -50,6 +50,12 @@ public:
 	// Set matrix to the identity matrix
 	void Set_Iden();
 
+	// Set matrix to the zero matrix
+	void Set_Zero();
+
+	// Set matrix to the one matrix
+	void Set_One();
+
 	// Operator overload
 	BMatrix* operator[]( const int i ) const;
 	BMatrix* operator()( const int i, const int j ) const;

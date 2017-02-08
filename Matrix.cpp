@@ -146,6 +146,15 @@ void Matrix::Set_Zero()
 }
 
 /**
+ * Set matrix to the one matrix
+ */
+void Matrix::Set_One()
+{
+	for (int i=0; i< m_ * n_; i++)
+		top_[i] = (double)1.0;
+}
+
+/**
  * Assign the value to (i,j) element
  *
  * @param i vertical index of the element
