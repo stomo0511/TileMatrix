@@ -36,8 +36,8 @@ BMatrix::BMatrix( const int m, const int n, const int ib ) : Matrix(m,n)
 	cout << "BMatrix(m,n,ib)\n";
 	#endif
 
-	assert( ib > 0 );
-	assert( ib < n );
+	assert( ib >= 0 );
+	assert( ib <= n );
 
 	ib_ = ib;
 }
