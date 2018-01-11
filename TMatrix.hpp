@@ -50,6 +50,9 @@ public:
 	// Set matrix to the identity matrix
 	void Set_Iden();
 
+	// Show all elements
+	void Show_all();
+
 	// Operator overload
 	BMatrix* operator[]( const int i ) const;
 	BMatrix* operator()( const int i, const int j ) const;

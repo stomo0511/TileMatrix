@@ -187,7 +187,7 @@ void TMatrix::Set_Rnd( const unsigned seed )
 			int i = I % mb_;
 			int j = J % nb_;
 
-			top_[ ti + tj * nt_ ]->Set_Val(i, j, Tmp(I,J));
+			top_[ ti + tj * mt_ ]->Set_Val(i, j, Tmp(I,J));
 		}
 	}
 }
@@ -204,6 +204,30 @@ void TMatrix::Set_Iden()
 				top_[ i + j*mt_ ]->Set_Iden();
 			else
 				top_[ i + j*mt_ ]->Set_Zero();
+}
+
+/**
+ * Show all elements
+ *
+ */
+void TMatrix::Show_all()
+{
+	for (int I=0; I<M_; I++ )
+	{
+		for (int J=0; J<N_; J++)
+		{
+			// (ti,tj) : Tile index
+			int ti = I / mb_;
+			int tj = J / nb_;
+
+			// (i,j) : Index of the tile elements
+			int i = I % mb_;
+			int j = J % nb_;
+
+			cout << top_[ ti + tj*mt_ ]->operator ()(i,j) << ", ";
+		}
+		cout << endl;
+	}
 }
 
 /**

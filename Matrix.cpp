@@ -105,7 +105,7 @@ void Matrix::Show_all() const
 {
 	for (int i = 0; i < m_; i++) {
 		for (int j = 0; j < n_; j++) {
-			cout << top_[ i + j * m_ ] << " ";
+			cout << top_[ i + j * m_ ] << ", ";
 		}
 		cout << endl;
 	}
@@ -158,6 +158,14 @@ void Matrix::Set_Val( const int i, const int j, const double val )
 	assert( j >= 0 );	assert( j < n_ );
 
 	top_[ i + j * m_ ] = val;
+}
+
+double Matrix::Get_Val( const int i, const int j )
+{
+	assert( i >= 0 );	assert( i < m_ );
+	assert( j >= 0 );	assert( j < n_ );
+
+	return top_[ i + j * m_ ];
 }
 
 /**

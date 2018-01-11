@@ -48,6 +48,8 @@ public:
 	// Assign the value to (i,j) element
 	void Set_Val( const int i, const int j, const double val );
 
+	double Get_Val( const int i, const int j );
+
 	// Operator overload
 	Matrix &operator=( const Matrix& T );
 	double &operator[]( const int i ) const;
