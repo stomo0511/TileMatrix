@@ -160,7 +160,7 @@ void Matrix::Set_Val( const int i, const int j, const double val )
 	top_[ i + j * m_ ] = val;
 }
 
-double Matrix::Get_Val( const int i, const int j )
+double Matrix::Get_Val( const int i, const int j ) const
 {
 	assert( i >= 0 );	assert( i < m_ );
 	assert( j >= 0 );	assert( j < n_ );
