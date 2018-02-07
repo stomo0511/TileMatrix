@@ -1,4 +1,12 @@
-CXX = /usr/local/bin/g++
+UNAME = $(shell uname)
+  CXX = g++
+ifeq ($(UNAME),Linux)
+endif
+ifeq ($(UNAME),Darwin)
+  CXX = /usr/local/bin/g++
+endif
+
+
 #CXXFLAGS = -g -Wall -DDEBUG
 CXXFLAGS = -O3 -Wall
 
