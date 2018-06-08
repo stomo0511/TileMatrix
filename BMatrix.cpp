@@ -37,7 +37,7 @@ BMatrix::BMatrix( const int m, const int n, const int ib ) : Matrix(m,n)
 	#endif
 
 	assert( ib >= 0 );
-	assert( ib <= n );
+//	assert( ib <= n );
 
 	ib_ = ib;
 }
